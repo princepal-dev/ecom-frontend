@@ -1,5 +1,11 @@
+import Products from "./components/Products.tsx";
+
 function App() {
-  return <div>Hello</div>;
+  return (
+    <>
+      <Products />
+    </>
+  );
 }
 
 export default App;
