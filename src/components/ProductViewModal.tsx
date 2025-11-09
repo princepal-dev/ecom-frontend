@@ -88,7 +88,7 @@ export default function ProductViewModal({
                 </div>
 
                 <Divider />
-                <p>{description}</p>
+                <p className="mt-4">{description}</p>
               </div>
             </div>
 
