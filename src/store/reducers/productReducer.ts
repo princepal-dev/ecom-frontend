@@ -1,10 +1,28 @@
-const initialState = {
+import type { FetchProductsAction, Products } from "../../types/types.ts";
+
+export interface Pagination {
+  pageNumber?: number;
+  pageSize?: number;
+  totalElements?: number;
+  totalPages?: number;
+}
+
+export interface ProductState {
+  products: Products[] | null;
+  categories: string[] | null;
+  pagination: Pagination;
+}
+
+const initialState: ProductState = {
   products: null,
   categories: null,
   pagination: {},
 };
 
-export const productReducer = (state = initialState, action) => {
+export const productReducer = (
+  state: ProductState = initialState,
+  action: FetchProductsAction,
+) => {
   switch (action.type) {
     case "FETCH_PRODUCTS":
       return {

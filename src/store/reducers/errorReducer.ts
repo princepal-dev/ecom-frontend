@@ -1,9 +1,14 @@
-const initialState = {
+import type { ErrorAction, ErrorState } from "../../types/types.ts";
+
+const initialState: ErrorState = {
   isLoading: false,
   errorMessage: null,
 };
 
-export const errorReducer = (state = initialState, action) => {
+export const errorReducer = (
+  state: ErrorState = initialState,
+  action: ErrorAction,
+) => {
   switch (action.type) {
     case "IS_FETCHING":
       return {
