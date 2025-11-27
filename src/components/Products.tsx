@@ -1,18 +1,13 @@
-import ProductCard from "./ProductCard.tsx";
-import { FaExclamationTriangle } from "react-icons/fa";
-import { useEffect } from "react";
-import { fetchProducts } from "../store/actions";
-import { useAppDispatch, useAppSelector } from "../hooks.ts";
 import Filter from "./Filter.tsx";
+import ProductCard from "./ProductCard.tsx";
+import { useAppSelector } from "../hooks.ts";
+import { FaExclamationTriangle } from "react-icons/fa";
+import useProductFilter from "../hook/useProductFilter.ts";
 
 export default function Products() {
-  const dispatch = useAppDispatch();
+  useProductFilter();
   const { products } = useAppSelector((state) => state.products);
   const { isLoading, errorMessage } = useAppSelector((state) => state.errors);
-
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
 
   return (
     <div className="lg:px-14 sm:px-8 px-4 py-14 2xl:w-[90%] 2xl:mx-auto">
