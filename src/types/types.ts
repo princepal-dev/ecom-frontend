@@ -8,3 +8,15 @@ export interface Products {
   discount: number;
   specialPrice: number;
 }
+
+export interface ProductsResponse {
+  content: Products[];
+  pageNumber: number;
+  pageSize: number;
+  totalElements: number;
+  totalPages: number;
+}
+
+export interface ErrorResponse {
+  message: string;
+}

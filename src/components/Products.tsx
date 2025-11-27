@@ -1,16 +1,14 @@
 import ProductCard from "./ProductCard.tsx";
 import { FaExclamationTriangle } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchProducts } from "../store/actions";
+import { useAppDispatch, useAppSelector } from "../hooks.ts";
+import Filter from "./Filter.tsx";
 
 export default function Products() {
-  const isLoading: boolean = false;
-  const errorMessage: string = "";
-  const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.products);
-
-  console.log(products);
+  const dispatch = useAppDispatch();
+  const { products } = useAppSelector((state) => state.products);
+  const { isLoading, errorMessage } = useAppSelector((state) => state.errors);
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -18,6 +16,7 @@ export default function Products() {
 
   return (
     <div className="lg:px-14 sm:px-8 px-4 py-14 2xl:w-[90%] 2xl:mx-auto">
+      <Filter />
       {isLoading ? (
         <p>We are cooking the products....</p>
       ) : errorMessage ? (
