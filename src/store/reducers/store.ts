@@ -7,7 +7,6 @@ export const store = configureStore({
     errors: errorReducer,
     products: productReducer,
   },
-  preloadedState: {},
 });
 
 export type RootState = ReturnType<typeof store.getState>;

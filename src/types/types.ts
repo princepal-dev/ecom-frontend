@@ -9,22 +9,25 @@ export interface Products {
   specialPrice: number;
 }
 
-export interface ProductsResponse {
-  content: Products[];
-  pageNumber: number;
-  pageSize: number;
-  totalElements: number;
-  totalPages: number;
-}
-
-export interface ErrorResponse {
-  message: string;
-}
-
 export interface ErrorState {
   isLoading: boolean;
   errorMessage: string | null;
+  categoryError: string | null;
+  categoryLoader: boolean;
 }
+
+export interface Category {
+  categoryName: string;
+  categoryId: number;
+}
+
+export type ErrorAction =
+  | { type: "IS_FETCHING" }
+  | { type: "IS_SUCCESS" }
+  | { type: "CATEGORY_LOADER" }
+  | { type: "CATEGORY_SUCCESS" }
+  | { type: "CATEGORY_ERROR"; payload: string | null }
+  | { type: "IS_ERROR"; payload: string | null };
 
 export interface FetchProductsAction {
   type: "FETCH_PRODUCTS";
@@ -35,11 +38,14 @@ export interface FetchProductsAction {
   totalPages: number;
 }
 
-export type ErrorAction =
-  | { type: "IS_FETCHING" }
-  | { type: "IS_SUCCESS" }
-  | { type: "IS_ERROR"; payload: string };
+export interface FetchCategoriesAction {
+  type: "FETCH_CATEGORIES";
+  payload: Category[];
+}
 
-export type ProductAction = FetchProductsAction;
-type LoadingAction = { type: "IS_FETCHING" } | { type: "IS_SUCCESS" };
-export type AppActions = FetchProductsAction | LoadingAction | ErrorAction;
+export type ProductReducerAction =
+  | FetchProductsAction
+  | FetchCategoriesAction
+  | ErrorAction;
+
+export type AppActions = ProductReducerAction;

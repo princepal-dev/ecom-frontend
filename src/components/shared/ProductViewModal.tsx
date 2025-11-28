@@ -5,7 +5,7 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { Divider } from "@mui/material";
-import type { Products } from "../types/types.ts";
+import type { Products } from "../../types/types.ts";
 import Status from "./Status.tsx";
 import { MdClose, MdDone } from "react-icons/md";
 

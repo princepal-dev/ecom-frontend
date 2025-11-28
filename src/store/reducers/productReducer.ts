@@ -1,4 +1,10 @@
-import type { FetchProductsAction, Products } from "../../types/types.ts";
+import type {
+  Category,
+  FetchCategoriesAction,
+  ProductReducerAction,
+  Products,
+} from "../../types/types.ts";
+import type { UnknownAction } from "@reduxjs/toolkit";
 
 export interface Pagination {
   pageNumber?: number;
@@ -9,33 +15,44 @@ export interface Pagination {
 
 export interface ProductState {
   products: Products[] | null;
-  categories: string[] | null;
+  categories: Category[] | null;
   pagination: Pagination;
 }
 
 const initialState: ProductState = {
   products: null,
-  categories: null,
+  categories: [],
   pagination: {},
 };
 
 export const productReducer = (
   state: ProductState = initialState,
-  action: FetchProductsAction,
-) => {
+  action: ProductReducerAction | UnknownAction,
+): ProductState => {
   switch (action.type) {
-    case "FETCH_PRODUCTS":
+    case "FETCH_PRODUCTS": {
+      const a = action as Extract<
+        ProductReducerAction,
+        { type: "FETCH_PRODUCTS" }
+      >;
       return {
         ...state,
-        products: action.payload,
+        products: a.payload,
         pagination: {
-          ...state.pagination,
-          pageNumber: action.pageNumber,
-          pageSize: action.pageSize,
-          totalElements: action.totalElements,
-          totalPages: action.totalPages,
+          pageNumber: a.pageNumber,
+          pageSize: a.pageSize,
+          totalElements: a.totalElements,
+          totalPages: a.totalPages,
         },
       };
+    }
+    case "FETCH_CATEGORIES": {
+      const a = action as FetchCategoriesAction;
+      return {
+        ...state,
+        categories: a.payload,
+      };
+    }
 
     default:
       return state;

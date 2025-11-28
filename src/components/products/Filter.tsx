@@ -10,16 +10,13 @@ import {
 } from "@mui/material";
 import type { SelectChangeEvent } from "@mui/material/Select";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import type { Category } from "../../types/types.ts";
 
-const categories = [
-  { categoryId: 1, categoryName: "Electronics" },
-  { categoryId: 2, categoryName: "Clothing" },
-  { categoryId: 3, categoryName: "Furniture" },
-  { categoryId: 4, categoryName: "Books" },
-  { categoryId: 5, categoryName: "Toys" },
-];
+interface FilterProps {
+  categories?: Category[] | [];
+}
 
-export default function Filter() {
+export default function Filter({ categories }: FilterProps) {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
@@ -107,11 +104,12 @@ export default function Filter() {
             className="min-w-[120px] text-slate-800 border-slate-700"
           >
             <MenuItem value="all">All</MenuItem>
-            {categories.map((item) => (
-              <MenuItem value={item.categoryName} key={item.categoryId}>
-                {item.categoryName}
-              </MenuItem>
-            ))}
+            {categories &&
+              categories.map((item) => (
+                <MenuItem value={item.categoryName} key={item.categoryId}>
+                  {item.categoryName}
+                </MenuItem>
+              ))}
           </Select>
         </FormControl>
 
